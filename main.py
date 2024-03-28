@@ -1,1 +1,1 @@
-from algorithm.greedy.adventurerguild.adventurerguild import *
+from algorithm.implimentation.resorting.resorting import *
