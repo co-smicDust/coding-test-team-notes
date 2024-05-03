@@ -1,1 +1,1 @@
-from algorithm.implimentation.resorting.resorting import *
+from algorithm.sorting.replace import *
