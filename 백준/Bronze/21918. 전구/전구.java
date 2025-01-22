@@ -1,52 +1,66 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 public class Main {
+    static int[] bulbs;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer sc = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(sc.nextToken());   // 전구 개수
-        int m = Integer.parseInt(sc.nextToken());   // 명령어 개수
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
 
-        sc = new StringTokenizer(br.readLine());
-        int[] state = new int[n];     // 현재 상태 초기화
+        bulbs = new int[n];
+        st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
-            state[i] = Integer.parseInt(sc.nextToken());
+            bulbs[i] = Integer.parseInt(st.nextToken());
         }
 
         for (int i = 0; i < m; i++) {
-            sc = new StringTokenizer(br.readLine());
-            int orderNum = Integer.parseInt(sc.nextToken());
-            int il = Integer.parseInt(sc.nextToken()) - 1;
-            int xr = Integer.parseInt(sc.nextToken());
+            st = new StringTokenizer(br.readLine());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            int c = Integer.parseInt(st.nextToken());
 
-            switch (orderNum) {
-                case 1:
-                    state[il] = xr;
-                    break;
-                case 2:
-                    for (int j = il; j < xr; j++) {
-                        state[j] = Math.abs(state[j] - 1);
-                    }
-                    break;
-                case 3:
-                    for (int j = il; j < xr; j++) {
-                        state[j] = 0;
-                    }
-                    break;
-                case 4:
-                    for (int j = il; j < xr; j++) {
-                        state[j] = 1;
-                    }
-                    break;
+            if (a == 1) {
+                changeSingleBulb(b - 1, c);
+            } else if (a == 2) {
+                chageGroupBulbs(b - 1, c - 1);
+            } else if (a == 3) {
+                offGroupBulbs(b - 1, c - 1);
+            } else {
+                onGroupBulbs(b - 1, c - 1);
             }
         }
+
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < n; i++) {
-            sb.append(state[i] + " ");
+            sb.append(bulbs[i] + " ");
         }
-        System.out.print(sb);
+
+        System.out.println(sb.toString());
     }
+
+    private static void onGroupBulbs(int l, int r) {
+        for (int i = l; i <= r; i++) {
+            bulbs[i] = 1;
+        }
+    }
+
+    private static void offGroupBulbs(int l, int r) {
+        for (int i = l; i <= r; i++) {
+            bulbs[i] = 0;
+        }
+    }
+
+    private static void chageGroupBulbs(int l, int r) {
+        for (int i = l; i <= r; i++) {
+            bulbs[i] = Math.abs(bulbs[i] - 1);
+        }
+    }
+
+    private static void changeSingleBulb(int i, int x) {
+        bulbs[i] = x;
+    }
+
 }
