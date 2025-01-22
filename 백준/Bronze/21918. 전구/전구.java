@@ -43,6 +43,10 @@ public class Main {
                     break;
             }
         }
-        for (int s: state) System.out.print(s + " ");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            sb.append(state[i] + " ");
+        }
+        System.out.print(sb);
     }
 }
