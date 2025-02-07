@@ -4,10 +4,10 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        
         int n = Integer.parseInt(br.readLine());
         int[][] build = new int[n][2];
-        int[] rank = new int[n];
-        Arrays.fill(rank, 1);
 
         for (int i = 0; i < n; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
@@ -16,19 +16,17 @@ public class Main {
         }
 
         for (int i = 0; i < n; i++) {       // 기준
+            int rank = 1;
             for (int j = 0; j < n; j++) {   //비교 대상
-                if (i != j) {           // i와 j가 다른 번호일 때
-                    if (build[i][0] < build[j][0]) {    // 몸무게 비교
-                        if (build[i][1] < build[j][1]) {    // 키 비교
-                            rank[i]++;
-                        }
-                    }
+                if (i == j) continue;           // i와 j가 다른 번호일 때
+                if (build[i][0] < build[j][0] &&build[i][1] < build[j][1]) {
+                    rank++;
                 }
             }
+            sb.append(rank).append(" ");
         }
 
-        for (int r:rank) {
-            System.out.print(r + " ");
-        }
+        System.out.print(sb);
+        br.close();
     }
 }
